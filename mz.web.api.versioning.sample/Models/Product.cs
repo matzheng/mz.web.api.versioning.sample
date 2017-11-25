@@ -10,15 +10,16 @@ namespace mz.web.api.versioning.sample.Models
     /// <summary>
     /// Products
     /// </summary>
-    [DataContract]
+    //[DataContract]
     public class Product
     {
         [Key]
-        [DataMember]
-        public int Id { get; set; }
-        [DataMember]
-        public string Name { get; set; }
-        [DataMember]
+        public int ProductId { get; set; }
+        //[DataMember]
+        public string ProductName { get; set; }
+        //[DataMember]
         public int Qty { get; set; }
+        public string SKU { get; set; }
+        public virtual List<Order> Orders {get;set;}
     }
 }
