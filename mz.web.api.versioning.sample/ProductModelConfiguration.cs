@@ -42,7 +42,7 @@ namespace mz.web.api.versioning.sample
         private EntityTypeConfiguration<Product> ConfigureCurrent(ODataModelBuilder builder)
         {
             var product = builder.EntitySet<Product>("Products").EntityType;
-            //product.Ignore(p => p.ProductId);
+            product.HasKey(p => p.ProductId);
             return product;
         }
     }

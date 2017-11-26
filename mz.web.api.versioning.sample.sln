@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mz.web.api.versioning.sample", "mz.web.api.versioning.sample\mz.web.api.versioning.sample.csproj", "{0604829C-4BAE-4E06-8411-25FFD9828432}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mz.web.api.versioning.odata.sample", "mz.web.api.versioning.odata.sample\mz.web.api.versioning.odata.sample.csproj", "{D98E7F7F-1FC3-4F66-8E00-8ABD85671F40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0604829C-4BAE-4E06-8411-25FFD9828432}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0604829C-4BAE-4E06-8411-25FFD9828432}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0604829C-4BAE-4E06-8411-25FFD9828432}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D98E7F7F-1FC3-4F66-8E00-8ABD85671F40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D98E7F7F-1FC3-4F66-8E00-8ABD85671F40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D98E7F7F-1FC3-4F66-8E00-8ABD85671F40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D98E7F7F-1FC3-4F66-8E00-8ABD85671F40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

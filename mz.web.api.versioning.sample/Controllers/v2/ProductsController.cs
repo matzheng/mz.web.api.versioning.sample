@@ -1,11 +1,7 @@
-﻿using System.Net;
-using mz.web.api.versioning.sample.Models;
-using Microsoft.Data.OData;
+﻿using mz.web.api.versioning.sample.Models;
 using System.Linq;
-using System.Collections.Generic;
 using System.Web.OData;
 using System.Web.OData.Query;
-using System.Web.Http;
 using mz.web.api.versioning.sample.Data;
 using Microsoft.Web.Http;
 using System.Web.OData.Routing;

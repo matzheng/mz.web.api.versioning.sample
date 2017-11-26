@@ -44,29 +44,30 @@ namespace mz.web.api.versioning.sample
             config.MapHttpAttributeRoutes(constraintResolver);
             //config.AddApiVersioning();
 
-            //config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            //config.Formatters.JsonFormatter.SupportedMediaTypes
-            //    .Add(new System.Net.Http.Headers.MediaTypeHeaderValue("text/html"));
-            //config.Filter().Expand().Select().OrderBy().MaxTop(null).Count();
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            config.Formatters.JsonFormatter.SupportedMediaTypes
+                .Add(new System.Net.Http.Headers.MediaTypeHeaderValue("text/html"));
+            config.Filter().Expand().Select().OrderBy().MaxTop(null).Count();
 
-            //config.AddODataQueryFilter();
+            config.AddODataQueryFilter();
 
             var modelbuilder = new VersionedODataModelBuilder(config) {
-                //DefaultModelConfiguration = (builder, apiVersion) =>
-                //{
-                //    //builder.EntitySet<Models.Product>("Products");
-                //},
-                ModelBuilderFactory = () => new ODataConventionModelBuilder().EnableLowerCamelCase(),
-                ModelConfigurations = {
-                    new ProductModelConfiguration()
-                }
+                DefaultModelConfiguration = (builder, apiVersion) =>
+                {
+                    builder.EntitySet<Models.Product>("Products");
+                },
+                //ModelBuilderFactory = () => new ODataConventionModelBuilder().EnableLowerCamelCase(),
+                //ModelConfigurations = {
+                //    new ProductModelConfiguration()
+                //}
             };
             var models = modelbuilder.GetEdmModels();
             config.MapVersionedODataRoutes("odata", "api", models);
-            config.MapVersionedODataRoutes("odata-bypath", "api/v{apiVersion}", models, ConfigureODataServices);
-            var apiExplorer = GlobalConfiguration.Configuration.AddVersionedApiExplorer(o => o.GroupNameFormat = "'v'VVV");
+            //config.MapVersionedODataRoutes("odata-bypath", "api/v{apiVersion}", models, ConfigureODataServices);
+            var apiExplorer = config.AddODataApiExplorer(o => o.GroupNameFormat = "'v'VVV");
             GlobalConfiguration.Configuration
-                .EnableSwagger("{apiVersion}/swagger", c =>
+                //.EnableSwagger("{apiVersion}/swagger", c =>
+                .EnableSwagger( c =>
                 {
                     // By default, the service root url is inferred from the request used to access the docs.
                     // However, there may be situations (e.g. proxy and load-balanced environments) where this does not
@@ -84,43 +85,43 @@ namespace mz.web.api.versioning.sample
                     // hold additional metadata for an API. Version and title are required but you can also provide
                     // additional fields by chaining methods off SingleApiVersion.
                     //
-                    //c.SingleApiVersion("v1", "mz.web.api.versioning.sample");
+                    c.SingleApiVersion("v1", "mz.web.api.versioning.sample");
 
                     // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                     //
-                    //c.PrettyPrint();
+                    c.PrettyPrint();
 
                     // If your API has multiple versions, use "MultipleApiVersions" instead of "SingleApiVersion".
                     // In this case, you must provide a lambda that tells Swashbuckle which actions should be
                     // included in the docs for a given API version. Like "SingleApiVersion", each call to "Version"
                     // returns an "Info" builder so you can provide additional metadata per API version.
                     //
-                    c.MultipleApiVersions(
-                        (apiDesc, targetApiVersion) => apiDesc.GetGroupName() == targetApiVersion,
-                        (vc) =>
-                        {
-                            //vc.Version("2.0", "Swashbuckle Dummy API V2");
-                            //vc.Version("1.0", "Swashbuckle Dummy API V1");
-                            //foreach (var group in apiExplorer.ApiDescriptions)
-                            //{
-                            //    vc.Version(group.Name, $"Sample API {group.ApiVersion}");
-                            //}
-                            foreach (var group in apiExplorer.ApiDescriptions)
-                            {
-                                var description = "A sample application with Swagger, Swashbuckle, and API versioning.";
+                    //c.MultipleApiVersions(
+                    //    (apiDesc, targetApiVersion) => apiDesc.GetGroupName() == targetApiVersion,
+                    //    (vc) =>
+                    //    {
+                    //        vc.Version("v2", "Swashbuckle Dummy API V2");
+                    //        vc.Version("v1", "Swashbuckle Dummy API V1");
+                    //        //foreach (var group in apiExplorer.ApiDescriptions)
+                    //        //{
+                    //        //    vc.Version(group.Name, $"Sample API {group.ApiVersion}");
+                    //        //}
+                    //        //foreach (var group in apiExplorer.ApiDescriptions)
+                    //        //{
+                    //        //    var description = "A sample application with Swagger, Swashbuckle, and API versioning.";
 
-                                if (group.IsDeprecated)
-                                {
-                                    description += " This API version has been deprecated.";
-                                }
+                    //        //    if (group.IsDeprecated)
+                    //        //    {
+                    //        //        description += " This API version has been deprecated.";
+                    //        //    }
 
-                                vc.Version(group.Name, $"Sample API {group.ApiVersion}")
-                                    //.Contact(c => c.Name("Bill Mei").Email("bill.mei@somewhere.com"))
-                                    .Description(description)
-                                    .License(l => l.Name("MIT").Url("https://opensource.org/licenses/MIT"))
-                                    .TermsOfService("Shareware");
-                            }
-                        });
+                    //        //    vc.Version(group.Name, $"Sample API {group.ApiVersion}")
+                    //        //        //.Contact(c => c.Name("Bill Mei").Email("bill.mei@somewhere.com"))
+                    //        //        .Description(description)
+                    //        //        .License(l => l.Name("MIT").Url("https://opensource.org/licenses/MIT"))
+                    //        //        .TermsOfService("Shareware");
+                    //        //}
+                    //    });
 
                     // You can use "BasicAuth", "ApiKey" or "OAuth2" options to describe security schemes for the API.
                     // See https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md for more details.
